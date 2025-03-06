@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.bmi_ds2bitb.screens.TelaInicial
+import br.senai.sp.jandira.bmi_ds2bitb.screens.UserDataScreen
 import br.senai.sp.jandira.bmi_ds2bitb.ui.theme.BMIDS2BITBTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             BMIDS2BITBTheme {
-                TelaInicial()
+                UserDataScreen()
             }
         }
     }
