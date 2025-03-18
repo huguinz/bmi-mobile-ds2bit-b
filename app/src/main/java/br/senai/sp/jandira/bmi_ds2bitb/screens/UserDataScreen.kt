@@ -74,17 +74,17 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(40.dp),
+                .fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 modifier = Modifier
-                    .padding(start = 28.dp)
+                    .padding(start = 28.dp, top = 30.dp)
                     .weight(1f),
                 text = stringResource(R.string.hi_screen) + "!",
                 fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.White
             )
             Card(
                 modifier = Modifier
@@ -199,7 +199,7 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                         OutlinedTextField(
                             value = ageState.value,
                             onValueChange = {
-                                ageState.value
+                                ageState.value = it
                             },
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -233,7 +233,7 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                         OutlinedTextField(
                             value = weightState.value,
                             onValueChange = {
-                                weightState.value
+                                weightState.value = it
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -267,7 +267,7 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                         OutlinedTextField(
                             value = heightState.value,
                             onValueChange = {
-                                heightState.value
+                                heightState.value = it
                             },
                             modifier = Modifier
                                 .fillMaxWidth(),
