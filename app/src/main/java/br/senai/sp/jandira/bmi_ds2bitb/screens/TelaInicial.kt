@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,7 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import br.senai.sp.jandira.bmi_ds2bitb.R
+import br.senai.sp.jandira.bmi.R
 
 @Composable
 fun TelaInicial(navController: NavHostController?) {
@@ -43,6 +44,16 @@ fun TelaInicial(navController: NavHostController?) {
     var nomeState = remember {
         mutableStateOf(value = "")
     }
+
+    var isErrorState = remember {
+        mutableStateOf(value = false)
+    }
+
+    var errorMessageState = remember {
+        mutableStateOf(value = "")
+    }
+
+    var context = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -120,10 +131,25 @@ fun TelaInicial(navController: NavHostController?) {
                                 keyboardType = KeyboardType.Text,
                                 capitalization = KeyboardCapitalization.Words
                             ),
-                            isError = true
+                            isError = isErrorState.value,
+                            supportingText = {
+                                Text(
+                                    text = errorMessageState.value,
+                                    color = Color(0xFF3F51B5)
+                                )
+                            }
                         )
                     }
-                    Button(onClick = {navController?.navigate("user_data")}) {
+                    Button(
+                        onClick = {
+                            if (nomeState.value.length < 3) {
+                                isErrorState.value = true
+                                errorMessageState.value = context.getString(R.string.support_name)
+                            } else {
+                                navController?.navigate("user_data")
+                            }
+                        },
+                    ) {
                         Text(
                             text = stringResource(R.string.next)
                         )

@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                         TelaInicial(navController)
                     }
                     composable(
-                        route = "usee_data"
+                        route = "user_data"
                     ) {
                         UserDataScreen()
                     }

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "br.senai.sp.jandira.bmi_ds2bitb"
+    namespace = "br.senai.sp.jandira.bmi"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "br.senai.sp.jandira.bmi_ds2bitb"
+        applicationId = "br.senai.sp.jandira.bmi"
         minSdk = 30
         targetSdk = 35
         versionCode = 1
@@ -57,5 +57,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.material.icons.extended.android)
+
+
     implementation(libs.androidx.navigation.compose)
 }
