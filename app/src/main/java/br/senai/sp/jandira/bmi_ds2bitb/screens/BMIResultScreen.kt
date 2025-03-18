@@ -31,11 +31,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 
 @Composable
 
-fun BMIResultScreen(){
+fun BMIResultScreen(navController: NavHostController?){
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -195,7 +196,9 @@ fun BMIResultScreen(){
                     ){}
                     HorizontalDivider()
                     Button(
-                        onClick = {},
+                        onClick = {
+                            navController?.navigate("user_data")
+                        },
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
                             .fillMaxWidth(),
@@ -219,5 +222,5 @@ fun BMIResultScreen(){
 @Preview(showSystemUi = true)
 @Composable
 private fun BMIResultScreenPreview() {
-    BMIResultScreen()
+    BMIResultScreen(navController = null)
 }
