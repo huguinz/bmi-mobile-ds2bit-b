@@ -16,5 +16,14 @@
     <string name="weight">Weight</string>
     <string name="calculate">Calculate</string>
     <string name="support_name">The name is required!</string>
+
+    <string name="bmi_result">Your BMI result</string>
+    <string name="result_example">30,6</string>
+    <string name="result_text_example">You have Class | Obesity.</string>
+    <string name="age_number">50</string>
+    <string name="weight_number">97 Kg</string>
+    <string name="high">High</string>
+    <string name="high_number">178 cm</string>
+    <string name="nem_calc">New Calc</string>
 </resources>
 
