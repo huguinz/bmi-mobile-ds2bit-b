@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi_ds2bitb.screens
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,10 +35,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
+import br.senai.sp.jandira.bmi_ds2bitb.model.BmiStatus
+import java.util.Locale
 
 @Composable
 
 fun BMIResultScreen(navController: NavHostController?){
+
+    val context = LocalContext.current
+
+    val sharedUserFile = context
+        .getSharedPreferences("usuario", Context.MODE_PRIVATE)
+
+    val age = sharedUserFile.getInt("user_age", 0)
+    var height = sharedUserFile.getInt("user_height", 0).toDouble()
+    val weight = sharedUserFile.getInt("user_weight", 0)
+
+    height /= 100
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -72,7 +88,7 @@ fun BMIResultScreen(navController: NavHostController?){
             Card (
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(730.dp),
+                    .height(700.dp),
                 shape = RoundedCornerShape(
                     topStart = 32.dp,
                     topEnd = 32.dp
@@ -149,7 +165,7 @@ fun BMIResultScreen(navController: NavHostController?){
                                     fontSize = 17.sp,
                                 )
                                 Text(
-                                    text = stringResource(R.string.age_number),
+                                    text = age.toString(),
                                     fontSize = 17.sp,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -165,7 +181,7 @@ fun BMIResultScreen(navController: NavHostController?){
                                     fontSize = 17.sp,
                                 )
                                 Text(
-                                    text = stringResource(R.string.weight_number),
+                                    text = "$weight",
                                     fontSize = 17.sp,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -177,11 +193,15 @@ fun BMIResultScreen(navController: NavHostController?){
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = stringResource(R.string.weight_number),
+                                    text = stringResource(R.string.height),
                                     fontSize = 17.sp,
                                 )
                                 Text(
-                                    text = stringResource(R.string.high_number),
+                                    text = String.format(
+                                        Locale.getDefault(),
+                                        "%.2f",
+                                        height
+                                    ),
                                     fontSize = 17.sp,
                                     fontWeight = FontWeight.Bold
                                 )

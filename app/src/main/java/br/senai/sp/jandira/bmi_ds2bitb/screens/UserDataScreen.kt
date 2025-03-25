@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi_ds2bitb.screens
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -60,6 +62,14 @@ fun UserDataScreen(navController: NavHostController?) {
         mutableStateOf("")
     }
 
+    // Abrir o arquivo.xml para recuperar o nome que o usuario digitou na tela anterior
+    val context = LocalContext.current
+    val sharedUserFile = context
+        .getSharedPreferences("usuario", Context.MODE_PRIVATE)
+    val userName = sharedUserFile.getString(
+        "user_name", "Name not found!"
+    )
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -82,7 +92,7 @@ fun UserDataScreen(navController: NavHostController?) {
                 modifier = Modifier
                     .padding(start = 28.dp, top = 30.dp)
                     .weight(1f),
-                text = stringResource(R.string.hi_screen) + "!",
+                text = stringResource(R.string.hi_screen) + " $userName!",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
@@ -301,6 +311,14 @@ fun UserDataScreen(navController: NavHostController?) {
                     }
                     Button(
                         onClick = {
+                            val sharedUserFile = context
+                                .getSharedPreferences("usuario", Context.MODE_PRIVATE)
+                            val editor = sharedUserFile.edit()
+                            editor.putInt("user_age", ageState.value.trim().toInt())
+                            editor.putInt("user_weight", weightState.value.trim().toInt())
+                            editor.putInt("user_height", heightState.value.trim().toInt())
+                            editor.apply()
+
                             navController?.navigate("result_screen")
                         },
                         modifier = Modifier

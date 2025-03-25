@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi_ds2bitb.screens
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -54,6 +55,7 @@ fun TelaInicial(navController: NavHostController?) {
     }
 
     var context = LocalContext.current
+
 
     Box(
         modifier = Modifier
@@ -146,6 +148,14 @@ fun TelaInicial(navController: NavHostController?) {
                                 isErrorState.value = true
                                 errorMessageState.value = context.getString(R.string.support_name)
                             } else {
+                                // Criar o acesso a um arquivo SharedPreferences
+                                val sharedNome = context
+                                    .getSharedPreferences("usuario", Context.MODE_PRIVATE)
+                                // Criar uma variavel para editar o arquivo, ou abrir caso o arquivo já exista
+                                val editor = sharedNome.edit()
+                                editor.putString("user_name", nomeState.value.trim())
+                                editor.apply()
+
                                 navController?.navigate("user_data")
                             }
                         },
