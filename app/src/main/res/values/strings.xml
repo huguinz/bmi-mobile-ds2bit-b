@@ -26,6 +26,9 @@
     <string name="high">High</string>
     <string name="high_number">178 cm</string>
     <string name="nem_calc">New Calc</string>
+    <string name="age_error">Age is mandatory!</string>
+    <string name="weight_error">Weight is mandatory!</string>
+    <string name="height_error">Height is mandatory!</string>
 
     <string name="under_weight">You are below your ideal weight</string>
     <string name="normal_weight">You have normal body weight</string>

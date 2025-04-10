@@ -62,6 +62,15 @@ fun UserDataScreen(navController: NavHostController?) {
         mutableStateOf("")
     }
 
+    var isAgeError = remember { mutableStateOf(false) }
+    var isWeightError = remember { mutableStateOf(false) }
+    var isHeightError = remember { mutableStateOf(false) }
+
+    var ageErrorText = remember { mutableStateOf("") }
+    var weightErrorText = remember { mutableStateOf("") }
+    var heightErrorText = remember { mutableStateOf("") }
+
+
     // Abrir o arquivo.xml para recuperar o nome que o usuario digitou na tela anterior
     val context = LocalContext.current
     val sharedUserFile = context
@@ -311,15 +320,33 @@ fun UserDataScreen(navController: NavHostController?) {
                     }
                     Button(
                         onClick = {
-                            val sharedUserFile = context
-                                .getSharedPreferences("usuario", Context.MODE_PRIVATE)
-                            val editor = sharedUserFile.edit()
-                            editor.putInt("user_age", ageState.value.trim().toInt())
-                            editor.putInt("user_weight", weightState.value.trim().toInt())
-                            editor.putInt("user_height", heightState.value.trim().toInt())
-                            editor.apply()
+                            heightState.value = heightState.value.replace(",", ".")
+                            weightState.value = weightState.value.replace(",", ".")
 
-                            navController?.navigate("result_screen")
+                            if (ageState.value.isEmpty()) {
+                                isAgeError.value = true
+                                ageErrorText.value =  context.getString(R.string.age_error)
+                            } else if (weightState.value.isEmpty()) {
+                                isHeightError.value = true
+                                weightErrorText.value = context.getString(R.string.weight_error)
+                            } else if (heightState.value.isEmpty()) {
+                                isHeightError.value = true
+                                weightErrorText.value = context.getString(R.string.height_error)
+                            } else {
+                                isAgeError.value = true
+                                isWeightError.value = true
+                                isHeightError.value = true
+
+                                val sharedUserFile = context
+                                    .getSharedPreferences("usuario", Context.MODE_PRIVATE)
+                                val editor = sharedUserFile.edit()
+                                editor.putInt("user_age", ageState.value.trim().toInt())
+                                editor.putInt("user_weight", weightState.value.trim().toInt())
+                                editor.putInt("user_height", heightState.value.trim().toInt())
+                                editor.apply()
+
+                                navController?.navigate("result_screen")
+                            }
                         },
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
